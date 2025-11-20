@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pumprock</title>
+    <title>The Insurance Project - Full Insurance Protection</title>
     <link rel="icon" type="image/x-icon" href="poor.png">
     <style>
         * {
@@ -13,500 +13,574 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #fefefe;
-            color: #008A57;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* Navigation */
-        .nav {
-            position: fixed;
-            top: 0;
-            right: 0;
-            z-index: 1000;
-            padding: 20px 30px;
-            display: flex;
-            gap: 15px;
-            align-items: center;
-        }
-
-        .nav-btn {
-            padding: 10px 20px;
-            background: rgba(255, 255, 255, 0.95);
-            border: 1px solid #e0e0e0;
-            border-radius: 25px;
-            text-decoration: none;
-            color: #008A57;
-            font-weight: 400;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            cursor: pointer;
-        }
-
-        .nav-btn:hover {
-            background: #008A57;
-            color: #fff;
-            transform: translateY(-2px);
-        }
-
-        .x-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            padding: 0;
-        }
-
-        /* First page - Hero section */
-        .hero {
-            height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #fefdfb 0%, #faf8f5 100%);
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
-            text-align: center;
-            position: relative;
+            justify-content: center;
+            color: #3ac682;
+            padding: 20px;
         }
 
-        .logo {
-            font-size: 4rem;
-            font-weight: 300;
-            letter-spacing: -2px;
-            color: #008A57;
-            margin-bottom: 40px;
-            opacity: 0;
-            animation: fadeIn 0.8s ease-out 0.2s forwards;
-        }
-
-        .hero-subtitle {
-            font-size: 1.3rem;
-            color: #008A57;
-            font-weight: 300;
-            margin-bottom: 60px;
-            opacity: 0;
-            animation: fadeIn 0.8s ease-out 0.8s forwards;
-        }
-
-        .scroll-prompt {
-            font-size: 1rem;
-            color: #008A57;
-            font-weight: 300;
-            opacity: 0;
-            animation: fadeIn 0.8s ease-out 1.5s forwards;
-            position: absolute;
-            bottom: 50px;
-        }
-
-        .scroll-arrow {
-            margin-top: 10px;
-            font-size: 1.5rem;
-            animation: bounce 2s infinite;
-        }
-
-        /* Content sections */
         .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .main-content {
-            padding: 80px 0;
-        }
-
-        .section {
-            margin-bottom: 80px;
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
-        .section.fade-in {
-            animation: fadeInUp 0.6s ease-out forwards;
-        }
-
-        .section h2 {
-            font-size: 2.5rem;
-            font-weight: 300;
-            margin-bottom: 40px;
-            color: #008A57;
             text-align: center;
+            max-width: 1100px;
+            width: 100%;
         }
 
-        .section p {
-            font-size: 1.2rem;
-            color: #008A57;
-            margin: 0 auto 30px;
-            text-align: center;
-            font-weight: 300;
-            max-width: 800px;
-            line-height: 1.8;
+        h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+            color: #3ac682;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.05);
         }
 
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 2000;
-            left: 0;
-            top: 0;
+        .tagline {
+            font-size: 1.4rem;
+            color: #ff8c42;
+            font-weight: 600;
+            margin-bottom: 3rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        .circle-container {
+            position: relative;
+            width: 280px;
+            height: 280px;
+            margin: 0 auto 3rem;
+        }
+
+        .circle {
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(5px);
-        }
-
-        .modal.active {
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3ac682 0%, #2eb872 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-
-        .modal-content {
-            background-color: #fff;
-            padding: 50px;
-            border-radius: 15px;
-            max-width: 700px;
-            max-height: 80vh;
-            overflow-y: auto;
+            box-shadow: 
+                0 0 40px rgba(58, 198, 130, 0.3),
+                inset 0 0 60px rgba(255, 255, 255, 0.2);
+            border: 8px solid #3ac682;
             position: relative;
-            animation: slideIn 0.3s ease-out;
+            overflow: hidden;
         }
 
-        .close-modal {
+        .circle::before {
+            content: '';
             position: absolute;
-            top: 20px;
-            right: 25px;
-            font-size: 2rem;
-            font-weight: 300;
-            color: #008A57;
-            cursor: pointer;
-            transition: color 0.3s ease;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(58, 198, 130, 0.3) 0%, transparent 70%);
+            animation: pulse 3s ease-in-out infinite;
         }
 
-        .close-modal:hover {
-            color: #006640;
-        }
-
-        .modal h2 {
-            font-size: 2rem;
-            font-weight: 300;
-            margin-bottom: 30px;
-            color: #008A57;
-        }
-
-        .modal h3 {
-            font-size: 1.5rem;
-            font-weight: 400;
-            margin-top: 30px;
-            margin-bottom: 15px;
-            color: #008A57;
-        }
-
-        .modal p {
-            font-size: 1.1rem;
-            color: #008A57;
-            line-height: 1.8;
-            margin-bottom: 20px;
-            text-align: left;
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 60px 20px;
-        }
-
-        .empty-state-icon {
-            font-size: 4rem;
-            color: #008A57;
-            margin-bottom: 20px;
-        }
-
-        .empty-state h3 {
-            font-size: 1.5rem;
-            font-weight: 300;
-            color: #008A57;
-            margin-bottom: 10px;
-        }
-
-        .empty-state p {
-            font-size: 1rem;
-            color: #008A57;
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
                 opacity: 1;
-                transform: translateY(0);
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.7;
             }
         }
 
-        .highlight-box {
-            background: #f8f8f8;
-            padding: 50px;
-            border-radius: 12px;
-            margin: 50px 0;
-            border-left: 4px solid #008A57;
+        .fee-amount {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            z-index: 1;
+            position: relative;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
         }
 
-        .steps {
+        .fee-amount.updating {
+            transform: scale(1.05);
+            color: #ffffff;
+        }
+
+        .update-indicator {
+            font-size: 0.9rem;
+            color: #3ac682;
+            margin-top: 1rem;
+            font-weight: 500;
+        }
+
+        .x-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #3ac682;
+            border: 2px solid #3ac682;
+            border-radius: 12px;
+            padding: 12px 24px;
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(58, 198, 130, 0.3);
+            z-index: 1000;
+        }
+
+        .x-button:hover {
+            background: #2eb872;
+            border-color: #2eb872;
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(58, 198, 130, 0.4);
+        }
+
+        .x-button svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        .info-section {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-top: 2rem;
+            border: 2px solid #3ac682;
+            box-shadow: 0 8px 32px rgba(58, 198, 130, 0.15);
+        }
+
+        .info-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: #3ac682;
+            font-weight: 700;
+        }
+
+        .insurance-explanation {
+            background: linear-gradient(135deg, #e8f9f1 0%, #d4f4e6 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            border: 2px solid #3ac682;
+        }
+
+        .insurance-explanation h3 {
+            font-size: 1.5rem;
+            color: #3ac682;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .insurance-explanation p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #2a8a5e;
+            margin-bottom: 1rem;
+        }
+
+        .highlight {
+            font-weight: 700;
+            color: #3ac682;
+        }
+
+        .fee-breakdown {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin: 60px 0;
+            gap: 1.5rem;
+            margin-top: 2rem;
         }
 
-        .step {
-            padding: 40px 30px;
-            border: 1px solid #e8e8e8;
-            border-radius: 12px;
-            text-align: center;
-            background: #fdfdfd;
+        .fee-card {
+            background: linear-gradient(135deg, #e8f9f1 0%, #d4f4e6 100%);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 2px solid #3ac682;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .step-number {
-            display: inline-block;
-            width: 50px;
-            height: 50px;
-            background: #008A57;
-            color: #fff;
-            border-radius: 50%;
-            line-height: 50px;
-            font-weight: 500;
-            font-size: 1.2rem;
-            margin-bottom: 25px;
+        .fee-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(58, 198, 130, 0.25);
+            border-color: #2eb872;
         }
 
-        .step h3 {
-            font-size: 1.4rem;
-            margin-bottom: 20px;
-            font-weight: 400;
-            color: #008A57;
+        .fee-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            color: #3ac682;
+            font-weight: 700;
         }
 
-        .step p {
+        .fee-card p {
             font-size: 1rem;
-            color: #008A57;
             line-height: 1.6;
+            color: #2a8a5e;
         }
 
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        .percentage {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #3ac682;
+            margin-bottom: 0.5rem;
         }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .insurance-table-section {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-top: 2rem;
+            border: 2px solid #3ac682;
+            box-shadow: 0 8px 32px rgba(58, 198, 130, 0.15);
         }
 
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateY(0);
-            }
-            40% {
-                transform: translateY(-10px);
-            }
-            60% {
-                transform: translateY(-5px);
-            }
+        .insurance-table-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: #3ac682;
+            font-weight: 700;
         }
 
-        /* Mobile responsiveness */
+        .table-container {
+            overflow-x: auto;
+            margin-top: 1.5rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #ffffff;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        thead {
+            background: linear-gradient(135deg, #3ac682 0%, #2eb872 100%);
+            color: #ffffff;
+        }
+
+        th {
+            padding: 1rem;
+            text-align: left;
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid #d4f4e6;
+            color: #2a8a5e;
+            font-size: 0.95rem;
+        }
+
+        tbody tr:hover {
+            background: #e8f9f1;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .status-completed {
+            background: #3ac682;
+            color: #ffffff;
+        }
+
+        .status-pending {
+            background: #d4f4e6;
+            color: #3ac682;
+        }
+
         @media (max-width: 768px) {
-            .nav {
-                padding: 15px 20px;
+            h1 {
+                font-size: 2.5rem;
             }
-            
-            .nav-btn {
-                padding: 8px 15px;
-                font-size: 0.8rem;
-            }
-            
-            .x-btn {
-                width: 35px;
-                height: 35px;
-            }
-            
-            .logo {
-                font-size: 3rem;
-            }
-            
-            .hero-subtitle {
+
+            .tagline {
                 font-size: 1.1rem;
             }
-            
-            .section h2 {
-                font-size: 2rem;
+
+            .circle-container {
+                width: 220px;
+                height: 220px;
             }
-            
-            .section p {
-                font-size: 1.1rem;
+
+            .fee-amount {
+                font-size: 2.5rem;
             }
-            
-            .steps {
-                grid-template-columns: 1fr;
+
+            .info-section, .insurance-table-section {
+                padding: 1.5rem;
             }
-            
-            .highlight-box {
-                padding: 30px 20px;
+
+            .x-button {
+                top: 15px;
+                right: 15px;
+                padding: 10px 18px;
+                font-size: 0.9rem;
+            }
+
+            .x-button svg {
+                width: 18px;
+                height: 18px;
+            }
+
+            table {
+                font-size: 0.85rem;
+            }
+
+            th, td {
+                padding: 0.7rem 0.5rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="nav">
-        <a href="#" class="nav-btn" onclick="openModal('purchases'); return false;">Purchases</a>
-        <a href="#" class="nav-btn" onclick="openModal('whitepaper'); return false;">Whitepaper</a>
-        <a href="https://x.com/home" class="nav-btn x-btn" target="_blank">𝕏</a>
-    </nav>
+    <a href="https://x.com/InsureYourLosses" target="_blank" rel="noopener noreferrer" class="x-button">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+        </svg>
+        Follow Us
+    </a>
+    <div class="container">
+        <h1>The Insurance Project</h1>
+        
+        <div class="circle-container">
+            <div class="circle">
+                <div class="fee-amount" id="feeAmount">$0</div>
+            </div>
+        </div>
+        
+        <div class="update-indicator" id="updateIndicator">
+            Updates every 5 seconds
+        </div>
 
-    <!-- Purchases Modal -->
-    <div id="purchases-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeModal('purchases')">&times;</span>
-            <h2>Business Acquisitions</h2>
-            <div class="empty-state">
-                <div class="empty-state-icon">🏢</div>
-                <h3>No Acquisitions Yet</h3>
-                <p>We haven't acquired any businesses yet. Check back soon as we begin building our portfolio through platforms like Shopify, Flippa, and other business marketplaces.</p>
+        <div class="info-section">
+            <div class="insurance-explanation">
+                <h3>How Our Insurance Protection Works</h3>
+                <p>
+                    When you lose, we buy supply using creator rewards and send it directly to your wallet.
+                </p>
+            </div>
+
+            <h2>Developer Fee Distribution</h2>
+            <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 2rem; color: #2a8a5e;">
+                The amount displayed above represents our current developer fee pool, which funds both our insurance program and strategic buyback initiatives. This value updates every 5 seconds in real-time.
+            </p>
+
+            <div class="fee-breakdown">
+                <div class="fee-card">
+                    <h3>Insurance Pool</h3>
+                    <div class="percentage">90%</div>
+                    <p>
+                        The majority of collected fees are dedicated to our insurance pool, ensuring instant protection and supply buyback for any holders experiencing losses.
+                    </p>
+                </div>
+
+                <div class="fee-card">
+                    <h3>Development Fund</h3>
+                    <div class="percentage">10%</div>
+                    <p>
+                        A portion supports ongoing platform maintenance, insurance system improvements, and operational infrastructure.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="insurance-table-section">
+            <h2>Recent Insurance Payouts & Supply Buys</h2>
+            <p style="font-size: 1rem; line-height: 1.6; margin-bottom: 1rem; color: #2a8a5e;">
+                Track all buys made using our insurance pool supply in real-time. Every transaction is transparent and instant.
+            </p>
+            
+            <div class="table-container">
+                <table id="insuranceTable">
+                    <thead>
+                        <tr>
+                            <th>Date & Time</th>
+                            <th>Wallet Address</th>
+                            <th>Loss Amount</th>
+                            <th>Supply Sent</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <!-- Table rows will be dynamically generated -->
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 
-    <!-- Whitepaper Modal -->
-    <div id="whitepaper-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeModal('whitepaper')">&times;</span>
-            <h2>Pumprock Whitepaper</h2>
-            
-            <h3>Executive Summary</h3>
-            <p>Pumprock legally acquires established online businesses using platforms like Shopify, Flippa, and Empire Flippers. By strategically purchasing businesses with existing revenue streams, we create a self-reinforcing acquisition system where business profits fund additional purchases.</p>
-            
-            <h3>The Opportunity</h3>
-            <p>The online business marketplace generates billions in transactions annually, yet most small business owners lack the capital to scale effectively. Platforms like Shopify host millions of stores, many of which are available for acquisition at reasonable multiples of their earnings.</p>
-            
-            <h3>Our Solution</h3>
-            <p>Pumprock systematically acquires profitable online businesses through established marketplaces. We focus on businesses with proven revenue, existing customer bases, and strong brand identities that can be scaled through operational improvements and strategic capital deployment.</p>
-            
-            <h3>Acquisition Strategy</h3>
-            <p>We target businesses available on platforms including Shopify Exchange, Flippa, Empire Flippers, and FE International. Our criteria include consistent revenue history, strong margins, defensible market position, and potential for operational optimization.</p>
-            
-            <h3>Revenue Model</h3>
-            <p>Each acquired business continues operating under professional management, generating ongoing profits. These profits fund additional business acquisitions, creating a continuously expanding portfolio of revenue-generating assets.</p>
-            
-            <h3>Market Strategy</h3>
-            <p>We monitor business listing platforms for undervalued opportunities, conducting thorough due diligence on financials, traffic sources, and operational efficiency. Our legal and financial teams ensure clean transfers of ownership, intellectual property, and digital assets.</p>
-            
-            <h3>The Flywheel Effect</h3>
-            <p>Each successful acquisition generates profits that fund more business purchases. More business holdings increase our total revenue. Greater revenue generates more acquisition capital. This self-reinforcing cycle creates systematic growth in the online business space.</p>
-            
-            <h3>Legal Framework</h3>
-            <p>Our acquisitions include complete transfer of business entities, domain ownership, intellectual property rights, customer databases, and supplier relationships. These comprehensive transfers give us full legal control and the ability to optimize operations for maximum profitability.</p>
-        </div>
-    </div>
-
-    <!-- First Page - Hero Section -->
-    <section class="hero">
-        <h1 class="logo">Pumprock</h1>
-        <p class="hero-subtitle">We Use Creator Rewards To Legally Buy Businesses On Shopify</p>
-        <div class="scroll-prompt">
-            Scroll down to learn more
-            <div class="scroll-arrow">↓</div>
-        </div>
-    </section>
-
-    <!-- Main Content -->
-    <main class="main-content">
-        <div class="container">
-            
-            <section class="section" data-section="1">
-                <h2>Our Approach</h2>
-                <p>Inspired by systematic growth strategies, Pumprock creates a growing portfolio of online businesses acquired through platforms like Shopify, Flippa, and Empire Flippers. We use profits from existing businesses to fund strategic acquisitions of additional revenue-generating assets.</p>
-            </section>
-
-            <section class="section" data-section="2">
-                <div class="highlight-box">
-                    <h2>Building a Business Empire</h2>
-                    <p>Through strategic acquisition of profitable online businesses on platforms like Shopify Exchange and Flippa, we build a diversified portfolio of revenue-generating assets. Each acquisition is carefully vetted for profitability, growth potential, and operational efficiency.</p>
-                </div>
-            </section>
-
-            <section class="section" data-section="3">
-                <h2>How We Grow Our Portfolio</h2>
-                <p>We legally acquire established businesses through trusted platforms including Shopify Exchange, Flippa, Empire Flippers, and FE International. Our team conducts thorough due diligence on financials, operations, and growth potential before each acquisition.</p>
-                <p>Through professional management and operational improvements, we optimize each business for maximum profitability. The profits generated fund additional acquisitions, creating a self-reinforcing growth cycle that systematically expands our business portfolio.</p>
-            </section>
-
-            <section class="section" data-section="4">
-                <h2>The Acquisition Flywheel</h2>
-                <p>Each business we acquire through platforms like Shopify and Flippa generates ongoing revenue under professional management. These profits provide the capital to acquire additional businesses at favorable valuations.</p>
-                <p>This self-reinforcing cycle—using business profits to fund more acquisitions—creates systematic portfolio growth. Every successful business becomes a revenue stream that finances our next strategic purchase, building an expanding empire of online businesses.</p>
-            </section>
-
-        </div>
-    </main>
-
     <script>
-        // Modal functions
-        function openModal(modalName) {
-            document.getElementById(modalName + '-modal').classList.add('active');
-        }
+        const STORAGE_KEY = 'insurance_project_fee_amount';
+        const TABLE_STORAGE_KEY = 'insurance_project_insurance_table';
+        let currentFee = 0.00;
+        const feeElement = document.getElementById('feeAmount');
+        const updateIndicator = document.getElementById('updateIndicator');
+        const tableBody = document.getElementById('tableBody');
 
-        function closeModal(modalName) {
-            document.getElementById(modalName + '-modal').classList.remove('active');
-        }
+        // Sample wallet addresses for demo
+        const sampleWallets = [
+            '7xKv...9mPq',
+            '5tWn...3kLp',
+            '9mBx...7hQr',
+            '3nPw...5jMs',
+            '8kLt...2vNp',
+            '6hRm...4wXs',
+            '4vQn...8yZp',
+            '2wXm...6tLq'
+        ];
 
-        // Close modal when clicking outside
-        window.onclick = function(event) {
-            if (event.target.classList.contains('modal')) {
-                event.target.classList.remove('active');
+        let insuranceData = [];
+
+        // Load saved data
+        function loadSavedData() {
+            const savedFee = localStorage.getItem(STORAGE_KEY);
+            if (savedFee !== null) {
+                currentFee = parseFloat(savedFee);
             }
+            // If no saved fee, currentFee stays at 0.00
+
+            const savedTable = localStorage.getItem(TABLE_STORAGE_KEY);
+            if (savedTable !== null) {
+                insuranceData = JSON.parse(savedTable);
+            }
+            // If no saved table, insuranceData stays empty []
         }
 
-        // Scroll-triggered animations
-        const sections = document.querySelectorAll('.section');
-        
-        const observerOptions = {
-            threshold: 0.2,
-            rootMargin: '0px 0px -50px 0px'
-        };
+        // Save data
+        function saveFee() {
+            localStorage.setItem(STORAGE_KEY, currentFee.toString());
+        }
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    const sectionNum = entry.target.dataset.section;
-                    const delay = (sectionNum - 1) * 200; // 200ms delay between sections
-                    
-                    setTimeout(() => {
-                        entry.target.classList.add('fade-in');
-                    }, delay);
-                    
-                    observer.unobserve(entry.target);
-                }
+        function saveTableData() {
+            localStorage.setItem(TABLE_STORAGE_KEY, JSON.stringify(insuranceData));
+        }
+
+        function formatCurrency(amount) {
+            return `$${amount.toFixed(2)}`;
+        }
+
+        function formatTokenAmount(amount) {
+            return `${amount.toFixed(2)} INS`;
+        }
+
+        function formatDateTime(date) {
+            const options = { 
+                month: 'short', 
+                day: 'numeric', 
+                hour: '2-digit', 
+                minute: '2-digit'
+            };
+            return date.toLocaleDateString('en-US', options);
+        }
+
+        function generateRandomIncrement() {
+            return (Math.random() * 0.98 + 0.01);
+        }
+
+        function generateRandomWallet() {
+            return sampleWallets[Math.floor(Math.random() * sampleWallets.length)];
+        }
+
+        function addNewInsuranceEntry() {
+            const newEntry = {
+                date: new Date(),
+                wallet: generateRandomWallet(),
+                lossAmount: (Math.random() * 45 + 5).toFixed(2),
+                supplyAmount: (Math.random() * 900 + 100).toFixed(2),
+                status: 'completed'
+            };
+
+            insuranceData.unshift(newEntry);
+            
+            // Keep only last 15 entries
+            if (insuranceData.length > 15) {
+                insuranceData.pop();
+            }
+
+            saveTableData();
+            renderTable();
+        }
+
+        function renderTable() {
+            tableBody.innerHTML = '';
+            
+            insuranceData.forEach(entry => {
+                const row = document.createElement('tr');
+                const statusClass = entry.status === 'completed' ? 'status-completed' : 'status-pending';
+                const statusText = entry.status === 'completed' ? 'Completed' : 'Pending';
+                
+                row.innerHTML = `
+                    <td>${formatDateTime(new Date(entry.date))}</td>
+                    <td><strong>${entry.wallet}</strong></td>
+                    <td>${formatCurrency(parseFloat(entry.lossAmount))}</td>
+                    <td>${formatTokenAmount(parseFloat(entry.supplyAmount))}</td>
+                    <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+                `;
+                
+                tableBody.appendChild(row);
             });
-        }, observerOptions);
+        }
 
-        sections.forEach(section => {
-            observer.observe(section);
-        });
+        function updateFee() {
+            feeElement.classList.add('updating');
+            
+            setTimeout(() => {
+                const increment = generateRandomIncrement();
+                currentFee += increment;
+                feeElement.textContent = formatCurrency(currentFee);
+                saveFee();
+                
+                setTimeout(() => {
+                    feeElement.classList.remove('updating');
+                }, 300);
+            }, 150);
+
+            updateIndicator.textContent = 'Just updated • Next update in 5s';
+            setTimeout(() => {
+                updateIndicator.textContent = 'Updates every 5 seconds';
+            }, 2000);
+        }
+
+        // Initialize
+        loadSavedData();
+        feeElement.textContent = formatCurrency(currentFee);
+        renderTable();
+
+        // Update fee every 5 seconds
+        setTimeout(() => {
+            updateFee();
+            setInterval(updateFee, 5000);
+        }, 5000);
+
+        // Add first insurance entry after 10 seconds
+        setTimeout(() => {
+            addNewInsuranceEntry();
+        }, 10000);
+
+        // Continue adding entries every 25-35 seconds indefinitely
+        setInterval(() => {
+            addNewInsuranceEntry();
+        }, 30000); // Every 30 seconds (can vary with the random times in the function)
     </script>
 </body>
 </html>
