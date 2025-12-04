@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome to Ads</title>
-    <link rel="icon" type="image/x-icon" href="angry.png">
     <style>
         * {
             margin: 0;
@@ -23,6 +22,17 @@
             color: #3D3229;
         }
 
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
         .top-buttons {
             position: fixed;
             top: 24px;
@@ -32,7 +42,7 @@
             z-index: 10;
         }
 
-        .ads-button {
+        .nav-button {
             background-color: #E8DDD4;
             border: none;
             padding: 12px 24px;
@@ -45,7 +55,7 @@
             text-decoration: none;
         }
 
-        .ads-button:hover {
+        .nav-button:hover {
             background-color: #DED0C4;
             transform: translateY(-1px);
         }
@@ -74,6 +84,34 @@
             border-radius: 12px;
         }
 
+        h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 40px;
+            color: #2C2419;
+            letter-spacing: -1px;
+        }
+
+        h2 {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            margin-top: 40px;
+            color: #2C2419;
+        }
+
+        p {
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 24px;
+            color: #5C4D3C;
+        }
+
+        .highlight {
+            color: #8B6914;
+            font-weight: 600;
+        }
+
         .tweet-button {
             display: inline-block;
             margin-top: 32px;
@@ -92,116 +130,142 @@
             transform: translateY(-2px);
         }
 
-        h1 {
-            font-size: 48px;
+        /* Ads Page Styles */
+        .ads-content {
+            max-width: 700px;
+            text-align: center;
+        }
+
+        .stats-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .stat-box {
+            background-color: #E8DDD4;
+            padding: 30px 40px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 36px;
             font-weight: 700;
-            margin-bottom: 40px;
             color: #2C2419;
-            letter-spacing: -1px;
         }
 
-        p {
-            font-size: 18px;
-            line-height: 1.8;
-            margin-bottom: 24px;
+        .stat-label {
+            font-size: 14px;
             color: #5C4D3C;
+            margin-top: 8px;
         }
 
-        .highlight {
-            color: #8B6914;
-            font-weight: 600;
+        .plan-section {
+            background-color: #E8DDD4;
+            padding: 30px;
+            border-radius: 12px;
+            margin-top: 40px;
         }
     </style>
 </head>
 <body>
-    <div class="top-buttons">
-        <a href="https://x.com/plzbuyourcoin" target="_blank" class="ads-button">x.com</a>
-        <button class="ads-button" onclick="showAds()">View Our Ads</button>
+
+    <!-- HOME PAGE -->
+    <div class="page active" id="homePage">
+        <div class="top-buttons">
+            <a href="https://x.com/plzbuyourcoin" target="_blank" class="nav-button">x.com</a>
+            <button class="nav-button" onclick="showPage('adsPage')">View Our Ads</button>
+        </div>
+
+        <div class="main-container">
+            <div class="content">
+                <h1>welcome to ads</h1>
+                
+                <p>
+                    so x gave us a insanely free <span class="highlight">10m+ narrative</span> yesterday sadly it got farmed and pretty much ruined
+                </p>
+                
+                <p>
+                    so we decided to fix that, we spent <span class="highlight">1000$ of ads</span> on this memecoin and that gets us <span class="highlight">250k eyes</span> but using fees we can get <span class="highlight">10m+ eyes</span>
+                </p>
+                
+                <p>
+                    check yourself the ads we are launching on the top right (theres a button)
+                </p>
+                
+                <p>
+                    so yeah share it to ur friends and plz buy our memecoin
+                </p>
+
+                <a href="https://x.com/X/status/1996406623431205216" target="_blank" class="tweet-button">view the tweet</a>
+            </div>
+
+            <div class="side-image">
+                <img src="x.png" alt="Ad Image">
+            </div>
+        </div>
     </div>
 
-    <div class="main-container" id="mainContainer">
-        <div class="content">
-            <h1>welcome to ads</h1>
-            
-            <p>
-                so x gave us a insanely free <span class="highlight">10m+ narrative</span> yesterday sadly it got farmed and pretty much ruined
-            </p>
-            
-            <p>
-                so we decided to fix that, we spent <span class="highlight">1000$ of ads</span> on this memecoin and that gets us <span class="highlight">250k eyes</span> but using fees we can get <span class="highlight">10m+ eyes</span>
-            </p>
-            
-            <p>
-                check yourself the ads we are launching on the top right (theres a button)
-            </p>
-            
-            <p>
-                so yeah share it to ur friends and plz buy our memecoin
-            </p>
-
-            <a href="https://x.com/X/status/1996406623431205216" target="_blank" class="tweet-button">view the tweet</a>
+    <!-- ADS PAGE -->
+    <div class="page" id="adsPage">
+        <div class="top-buttons">
+            <button class="nav-button" onclick="showPage('homePage')">← Back to Home</button>
         </div>
 
-        <div class="side-image">
-            <img src="x.png" alt="Ad Image">
-        </div>
-    </div>
+        <div class="ads-content">
+            <h1>our x ads</h1>
+            
+            <p>
+                heres the breakdown of what we're doing with ads on x
+            </p>
 
-    <div class="ads-section" id="adsSection">
-        <h1>our x ads</h1>
-        
-        <p>
-            heres the breakdown of what we're doing with ads on x
-        </p>
-
-        <div class="stats-container">
-            <div class="stat-box">
-                <div class="stat-number">$1,000</div>
-                <div class="stat-label">spent on ads</div>
+            <div class="stats-container">
+                <div class="stat-box">
+                    <div class="stat-number">$1,000</div>
+                    <div class="stat-label">spent on ads</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">250k</div>
+                    <div class="stat-label">initial eyes</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">10m+</div>
+                    <div class="stat-label">target reach</div>
+                </div>
             </div>
-            <div class="stat-box">
-                <div class="stat-number">250k</div>
-                <div class="stat-label">initial eyes</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-number">10m+</div>
-                <div class="stat-label">target reach</div>
-            </div>
-        </div>
 
-        <h2>the plan</h2>
-        
-        <p>
-            we dropped <span class="highlight">$1,000</span> on x ads to kick things off — that gets us around <span class="highlight">250k impressions</span>
-        </p>
-        
-        <p>
-            but heres where it gets interesting: we're using <span class="highlight">fees from the memecoin</span> to keep pumping more into ads
-        </p>
-        
-        <p>
-            this way we can scale up to <span class="highlight">10m+ eyes</span> without needing a huge upfront budget
-        </p>
-
-        <div class="plan-section">
-            <h2>how fees work for us</h2>
+            <h2>the plan</h2>
+            
             <p>
-                every transaction on our memecoin generates fees — and those fees go straight back into marketing and ads. the more people trade, the more ads we run, the more exposure we get. its a loop that keeps growing.
+                we dropped <span class="highlight">$1,000</span> on x ads to kick things off — that gets us around <span class="highlight">250k impressions</span>
             </p>
-        </div>
+            
+            <p>
+                but heres where it gets interesting: we're using <span class="highlight">fees from the memecoin</span> to keep pumping more into ads
+            </p>
+            
+            <p>
+                this way we can scale up to <span class="highlight">10m+ eyes</span> without needing a huge upfront budget
+            </p>
 
-        <button class="back-btn" onclick="showMain()">← Back</button>
+            <div class="plan-section">
+                <h2>how fees work for us</h2>
+                <p>
+                    every transaction on our memecoin generates fees — and those fees go straight back into marketing and ads. the more people trade, the more ads we run, the more exposure we get. its a loop that keeps growing.
+                </p>
+            </div>
+        </div>
     </div>
 
     <script>
-        function showAds() {
-            document.getElementById('mainContainer').classList.add('hidden');
-            document.getElementById('adsSection').classList.add('active');
-        }
-
-        function showMain() {
-            document.getElementById('mainContainer').classList.remove('hidden');
-            document.getElementById('adsSection').classList.remove('active');
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
         }
     </script>
 </body>
