@@ -1,591 +1,168 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Blizzard</title>
-    <link rel="icon" type="image/x-icon" href="snow.png">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+import React from 'react';
+import { Code, Zap, Shield, Rocket } from 'lucide-react';
 
-        body {
-            font-family: 'Georgia', serif;
-            background: linear-gradient(135deg, #f5f5f0 0%, #faf9f6 50%, #f0f0eb 100%);
-            min-height: 100vh;
-            overflow-x: hidden;
-            overflow-y: auto;
-            position: relative;
-            width: 100vw;
-        }
-
-        .snowflake {
-            position: fixed;
-            top: -10px;
-            color: rgba(173, 216, 230, 0.8);
-            font-size: 1em;
-            animation: fall linear infinite;
-            text-shadow: 0 0 5px rgba(173, 216, 230, 0.5);
-            pointer-events: none;
-        }
-
-        @keyframes fall {
-            to {
-                transform: translateY(110vh) rotate(360deg);
-            }
-        }
-
-        .title-container {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            opacity: 0;
-            animation: fadeIn 2s ease-in 1.5s forwards;
-        }
-
-        .title {
-            font-size: 6rem;
-            font-weight: 300;
-            color: #2c3e50;
-            letter-spacing: 0.3rem;
-            text-shadow: 2px 2px 4px rgba(173, 216, 230, 0.3);
-            margin-bottom: 1rem;
-        }
-
-        .subtitle {
-            font-size: 1.2rem;
-            color: #5a6c7d;
-            font-style: normal;
-            letter-spacing: 0.05rem;
-            margin-top: 1.5rem;
-            line-height: 1.6;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .x-button {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: #000000;
-            border: 2px solid #000000;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            color: #ffffff;
-            font-weight: bold;
-            font-size: 1.5rem;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-            z-index: 1000;
-        }
-
-        .x-button:hover {
-            background: #1a1a1a;
-            transform: scale(1.1);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-        }
-
-        .button-container {
-            position: absolute;
-            top: 60%;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 20px;
-            opacity: 0;
-            animation: fadeIn 2s ease-in 2.5s forwards;
-        }
-
-        .btn {
-            padding: 15px 35px;
-            background: rgba(255, 255, 255, 0.9);
-            border: 2px solid rgba(173, 216, 230, 0.6);
-            border-radius: 8px;
-            color: #2c3e50;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            font-family: 'Georgia', serif;
-            box-shadow: 0 2px 10px rgba(173, 216, 230, 0.3);
-        }
-
-        .btn:hover {
-            background: rgba(173, 216, 230, 0.3);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(173, 216, 230, 0.5);
-        }
-
-        .page {
-            display: none;
-            min-height: 100vh;
-            padding: 100px 20px 50px;
-        }
-
-        .page.active {
-            display: block;
-        }
-
-        .home-page {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            position: relative;
-        }
-
-        .snowball {
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.95), rgba(220, 235, 245, 0.9));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 
-                0 10px 40px rgba(173, 216, 230, 0.4),
-                inset -5px -5px 20px rgba(173, 216, 230, 0.3),
-                inset 5px 5px 20px rgba(255, 255, 255, 0.8);
-            margin: 50px auto;
-            animation: pulse 3s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        .snowball-content {
-            text-align: center;
-        }
-
-        .fee-amount {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: #2c3e50;
-            margin-bottom: 10px;
-        }
-
-        .fee-label {
-            font-size: 1rem;
-            color: #5a6c7d;
-            text-transform: uppercase;
-            letter-spacing: 0.1rem;
-        }
-
-        .transactions-section {
-            max-width: 1000px;
-            margin: 50px auto;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 5px 20px rgba(173, 216, 230, 0.3);
-        }
-
-        .transactions-section h2 {
-            color: #2c3e50;
-            margin-bottom: 10px;
-            font-size: 2rem;
-        }
-
-        .transactions-section p {
-            color: #5a6c7d;
-            margin-bottom: 30px;
-            line-height: 1.6;
-        }
-
-        .transaction-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        .transaction-table th {
-            background: rgba(173, 216, 230, 0.3);
-            padding: 15px;
-            text-align: left;
-            color: #2c3e50;
-            font-weight: bold;
-            border-bottom: 2px solid rgba(173, 216, 230, 0.5);
-        }
-
-        .transaction-table td {
-            padding: 12px 15px;
-            border-bottom: 1px solid rgba(173, 216, 230, 0.2);
-            color: #4a5568;
-        }
-
-        .transaction-table tr:hover {
-            background: rgba(173, 216, 230, 0.1);
-        }
-
-        .tx-type {
-            display: inline-block;
-            padding: 5px 12px;
-            border-radius: 15px;
-            font-size: 0.85rem;
-            font-weight: bold;
-        }
-
-        .tx-purchase {
-            background: rgba(173, 216, 230, 0.3);
-            color: #2c3e50;
-        }
-
-        .tx-distribution {
-            background: rgba(173, 216, 230, 0.5);
-            color: #1a4d6d;
-        }
-
-        .docs-section {
-            max-width: 900px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 15px;
-            padding: 50px;
-            box-shadow: 0 5px 20px rgba(173, 216, 230, 0.3);
-        }
-
-        .docs-section h1 {
-            color: #2c3e50;
-            font-size: 3rem;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-
-        .docs-section h2 {
-            color: #2c3e50;
-            font-size: 2rem;
-            margin-top: 40px;
-            margin-bottom: 20px;
-            border-bottom: 2px solid rgba(173, 216, 230, 0.5);
-            padding-bottom: 10px;
-        }
-
-        .docs-section h3 {
-            color: #3d5a7a;
-            font-size: 1.5rem;
-            margin-top: 30px;
-            margin-bottom: 15px;
-        }
-
-        .docs-section p {
-            color: #4a5568;
-            line-height: 1.8;
-            margin-bottom: 20px;
-            font-size: 1.1rem;
-        }
-
-        .docs-section ul {
-            color: #4a5568;
-            line-height: 1.8;
-            margin-bottom: 20px;
-            margin-left: 30px;
-        }
-
-        .docs-section li {
-            margin-bottom: 10px;
-        }
-
-        .back-button {
-            position: fixed;
-            top: 80px;
-            left: 20px;
-            padding: 12px 25px;
-            background: rgba(255, 255, 255, 0.9);
-            border: 2px solid rgba(173, 216, 230, 0.6);
-            border-radius: 8px;
-            color: #2c3e50;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: 'Georgia', serif;
-            font-size: 1rem;
-            box-shadow: 0 2px 10px rgba(173, 216, 230, 0.3);
-            z-index: 1000;
-        }
-
-        .back-button:hover {
-            background: rgba(173, 216, 230, 0.3);
-            transform: translateX(-5px);
-        }
-
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-            }
-        }
-
-        .content {
-            position: absolute;
-            bottom: 10%;
-            left: 50%;
-            transform: translateX(-50%);
-            text-align: center;
-            opacity: 0;
-            animation: fadeIn 2s ease-in 6s forwards;
-            max-width: 600px;
-            padding: 0 2rem;
-        }
-
-        .content p {
-            color: #4a5568;
-            line-height: 1.8;
-            font-size: 1.1rem;
-        }
-
-        @media (max-width: 768px) {
-            .title {
-                font-size: 3rem;
-            }
-            .subtitle {
-                font-size: 1rem;
-            }
-            .button-container {
-                flex-direction: column;
-                gap: 15px;
-            }
-            .btn {
-                padding: 12px 25px;
-                font-size: 1rem;
-            }
-            .x-button {
-                width: 45px;
-                height: 45px;
-                font-size: 1.3rem;
-            }
-            .content p {
-                font-size: 0.9rem;
-            }
-        }
-    </style>
-</head>
-<body>
-    <a href="https://x.com/Blizzard_Sh" target="_blank" class="x-button">𝕏</a>
-
-    <div id="homePage" class="page home-page active">
-        <div class="title-container">
-            <h1 class="title">BLIZZARD</h1>
-            <p class="subtitle">We use fees to mass buy back then send every active solana wallet $0.10 of our token creating a real blizzard onchain</p>
-        </div>
-
-        <div class="button-container">
-            <a href="fees.html" class="btn" style="text-decoration: none; display: inline-block;">Check Fees</a>
-            <a href="docs.html" class="btn" style="text-decoration: none; display: inline-block;">Check Documentation</a>
-        </div>
-    </div>
-
-    <div id="feesPage" class="page">
-        <button class="back-button" onclick="showPage('homePage')">← Back</button>
-        
-        <div class="snowball">
-            <div class="snowball-content">
-                <div class="fee-amount" id="feeCounter">0.00</div>
-                <div class="fee-label">SOL Collected</div>
+export default function TestnetLanding() {
+  return (
+    <div className="min-h-screen bg-stone-50">
+      {/* Header */}
+      <header className="bg-white border-b border-stone-200">
+        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-green-600 rounded-lg flex items-center justify-center">
+              <Code className="w-6 h-6 text-white" />
             </div>
+            <h1 className="text-2xl font-bold text-stone-800">testnet</h1>
+          </div>
+          <button className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg font-medium transition-colors">
+            Get Started
+          </button>
         </div>
+      </header>
 
-        <div class="transactions-section">
-            <h2>Live Transaction Feed</h2>
-            <p>Every purchase and token send out is viewable on the Solana dev wallet as you can see below! All transactions are transparent and verifiable on-chain.</p>
-            
-            <table class="transaction-table">
-                <thead>
-                    <tr>
-                        <th>Type</th>
-                        <th>Amount</th>
-                        <th>Wallet</th>
-                        <th>Time</th>
-                    </tr>
-                </thead>
-                <tbody id="transactionList">
-                    <!-- Transactions will be added here dynamically -->
-                </tbody>
-            </table>
+      {/* Hero Section */}
+      <section className="max-w-7xl mx-auto px-6 py-20">
+        <div className="text-center max-w-3xl mx-auto">
+          <div className="inline-block bg-green-100 text-green-700 px-4 py-2 rounded-full text-sm font-medium mb-6">
+            For PumpFun Developers
+          </div>
+          <h2 className="text-5xl font-bold text-stone-800 mb-6">
+            Test Before You Launch
+          </h2>
+          <p className="text-xl text-stone-600 mb-8">
+            A comprehensive testnet environment for PumpFun developers to test products safely before going live. Every chain has one—now PumpFun does too.
+          </p>
+          <div className="flex gap-4 justify-center">
+            <button className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg font-medium transition-colors flex items-center gap-2">
+              <Rocket className="w-5 h-5" />
+              Start Testing
+            </button>
+            <button className="bg-white hover:bg-stone-100 text-stone-800 px-8 py-3 rounded-lg font-medium transition-colors border-2 border-stone-200">
+              View Documentation
+            </button>
+          </div>
         </div>
+      </section>
+
+      {/* Features Grid */}
+      <section className="max-w-7xl mx-auto px-6 py-16">
+        <div className="grid md:grid-cols-3 gap-8">
+          <div className="bg-white p-8 rounded-xl border border-stone-200">
+            <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+              <Shield className="w-6 h-6 text-green-600" />
+            </div>
+            <h3 className="text-xl font-bold text-stone-800 mb-3">Safe Testing Environment</h3>
+            <p className="text-stone-600">
+              Test your products in a risk-free environment that mirrors the production setup exactly.
+            </p>
+          </div>
+
+          <div className="bg-white p-8 rounded-xl border border-stone-200">
+            <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+              <Code className="w-6 h-6 text-green-600" />
+            </div>
+            <h3 className="text-xl font-bold text-stone-800 mb-3">Ready to Implement</h3>
+            <p className="text-stone-600">
+              Complete with code that PumpFun can implement themselves. Drop-in ready solution.
+            </p>
+          </div>
+
+          <div className="bg-white p-8 rounded-xl border border-stone-200">
+            <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+              <Zap className="w-6 h-6 text-green-600" />
+            </div>
+            <h3 className="text-xl font-bold text-stone-800 mb-3">Industry Standard</h3>
+            <p className="text-stone-600">
+              Every major chain has a testnet. Now PumpFun developers have the same capability.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Stats Section */}
+      <section className="max-w-7xl mx-auto px-6 py-16">
+        <div className="bg-gradient-to-br from-green-600 to-green-700 rounded-2xl p-12 text-white">
+          <div className="grid md:grid-cols-3 gap-8 text-center">
+            <div>
+              <div className="text-4xl font-bold mb-2">100%</div>
+              <div className="text-green-100">Production Parity</div>
+            </div>
+            <div>
+              <div className="text-4xl font-bold mb-2">Zero</div>
+              <div className="text-green-100">Real Funds at Risk</div>
+            </div>
+            <div>
+              <div className="text-4xl font-bold mb-2">Fast</div>
+              <div className="text-green-100">Integration Time</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works */}
+      <section className="max-w-7xl mx-auto px-6 py-16">
+        <h2 className="text-3xl font-bold text-stone-800 text-center mb-12">How It Works</h2>
+        <div className="grid md:grid-cols-3 gap-8">
+          <div className="text-center">
+            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold text-green-600">
+              1
+            </div>
+            <h3 className="text-xl font-bold text-stone-800 mb-2">Connect</h3>
+            <p className="text-stone-600">
+              Connect your development environment to the testnet with a single configuration change.
+            </p>
+          </div>
+          <div className="text-center">
+            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold text-green-600">
+              2
+            </div>
+            <h3 className="text-xl font-bold text-stone-800 mb-2">Test</h3>
+            <p className="text-stone-600">
+              Run comprehensive tests on your products without risking real user funds or data.
+            </p>
+          </div>
+          <div className="text-center">
+            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold text-green-600">
+              3
+            </div>
+            <h3 className="text-xl font-bold text-stone-800 mb-2">Launch</h3>
+            <p className="text-stone-600">
+              Deploy to production with confidence knowing your product has been thoroughly tested.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="max-w-7xl mx-auto px-6 py-20">
+        <div className="bg-white border-2 border-green-600 rounded-2xl p-12 text-center">
+          <h2 className="text-3xl font-bold text-stone-800 mb-4">
+            Ready to Test Your Product?
+          </h2>
+          <p className="text-xl text-stone-600 mb-8 max-w-2xl mx-auto">
+            Join developers who are building safer, more reliable products with our testnet environment.
+          </p>
+          <button className="bg-green-600 hover:bg-green-700 text-white px-10 py-4 rounded-lg font-medium text-lg transition-colors">
+            Access Testnet Now
+          </button>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-white border-t border-stone-200 mt-20">
+        <div className="max-w-7xl mx-auto px-6 py-8">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 bg-green-600 rounded-lg flex items-center justify-center">
+                <Code className="w-5 h-5 text-white" />
+              </div>
+              <span className="font-bold text-stone-800">testnet</span>
+            </div>
+            <p className="text-stone-600 text-sm">
+              © 2025 testnet. Built for PumpFun developers.
+            </p>
+          </div>
+        </div>
+      </footer>
     </div>
-
-    <div id="docsPage" class="page">
-        <button class="back-button" onclick="showPage('homePage')">← Back</button>
-        
-        <div class="docs-section">
-            <h1>BLIZZARD Documentation</h1>
-            
-            <h2>What is Blizzard?</h2>
-            <p>Blizzard is a revolutionary Solana-based token project that creates a true "blizzard effect" across the blockchain. Unlike traditional tokens that rely on manual marketing and slow organic growth, Blizzard uses an automated mass distribution system to ensure our token reaches every corner of the Solana ecosystem.</p>
-
-            <h2>The Core Mechanism</h2>
-            
-            <h3>Fee Collection & Buyback</h3>
-            <p>Every transaction involving Blizzard tokens incurs a small fee. These fees are automatically collected into our treasury wallet. Instead of keeping these fees or using them for traditional marketing, we deploy them strategically:</p>
-            <ul>
-                <li><strong>Mass Buyback Program:</strong> Collected fees are used to buy back Blizzard tokens from the open market, creating consistent buying pressure and supporting the token price.</li>
-                <li><strong>Automatic Distribution:</strong> The bought-back tokens aren't burned or held—they're immediately redistributed to active Solana wallets.</li>
-            </ul>
-
-            <h3>The Blizzard Effect</h3>
-            <p>Our unique distribution system sends exactly $0.10 worth of Blizzard tokens to every active Solana wallet. This creates a literal "blizzard" of transactions across the Solana blockchain:</p>
-            <ul>
-                <li><strong>Mass Awareness:</strong> When thousands of wallets suddenly receive Blizzard tokens, they naturally investigate what they've received, driving organic interest.</li>
-                <li><strong>Network Effect:</strong> Each recipient becomes a potential holder and advocate, exponentially expanding our reach.</li>
-                <li><strong>Fair Distribution:</strong> Unlike airdrops that favor early adopters or large holders, our system ensures everyone on Solana gets an equal opportunity.</li>
-            </ul>
-
-            <h2>Transparency & Verification</h2>
-            <p>Every single transaction—from purchases to distributions—is publicly viewable on the Solana blockchain. Our dev wallet address is fully transparent, allowing anyone to verify:</p>
-            <ul>
-                <li>Fee collection amounts</li>
-                <li>Buyback transactions</li>
-                <li>Distribution events</li>
-                <li>Treasury balance</li>
-            </ul>
-            <p>We believe in complete transparency. There are no hidden wallets, no secret reserves, and no backdoor mechanisms. What you see on-chain is exactly what's happening.</p>
-
-            <h2>Why Solana?</h2>
-            <p>Blizzard is built on Solana for several critical reasons:</p>
-            <ul>
-                <li><strong>Speed:</strong> Solana's high throughput allows us to execute mass distributions quickly and efficiently.</li>
-                <li><strong>Low Fees:</strong> Minimal transaction costs make it economically viable to send small amounts ($0.10) to thousands of wallets.</li>
-                <li><strong>Growing Ecosystem:</strong> Solana's expanding user base provides an ever-growing pool of active wallets to reach.</li>
-            </ul>
-
-            <h2>Tokenomics</h2>
-            <p>Blizzard operates on a simple but effective tokenomic model:</p>
-            <ul>
-                <li><strong>Transaction Fee:</strong> A small percentage fee on all transactions funds the buyback and distribution mechanism.</li>
-                <li><strong>No Team Allocation:</strong> There are no tokens reserved for the team beyond what's earned through the same mechanisms available to everyone.</li>
-                <li><strong>Deflationary Pressure:</strong> Constant buybacks from fees create organic buying pressure, while distribution spreads tokens to new holders.</li>
-                <li><strong>Community-Driven:</strong> Every holder contributes to the blizzard effect through transaction fees, making this a truly community-powered project.</li>
-            </ul>
-
-            <h2>The Vision</h2>
-            <p>Blizzard isn't just another meme token or speculative asset. It's an experiment in viral token distribution and organic growth. By leveraging Solana's technology and a unique economic model, we're creating a token that literally spreads itself across the blockchain like a winter storm.</p>
-            <p>Our goal is simple: make Blizzard the most widely distributed token on Solana, not through centralized exchanges or whale manipulation, but through genuine grassroots distribution to real users.</p>
-
-            <h2>Getting Started</h2>
-            <p>Joining the Blizzard is simple:</p>
-            <ul>
-                <li>Purchase Blizzard tokens through any Solana DEX</li>
-                <li>Hold your tokens in an active Solana wallet</li>
-                <li>Watch as transaction fees fuel the blizzard effect</li>
-                <li>Participate in the community and spread the word</li>
-            </ul>
-            <p>Remember: every transaction you make contributes to the next wave of distributions. You're not just holding a token—you're part of a movement to democratize token distribution across Solana.</p>
-        </div>
-    </div>
-
-    <script>
-        const snowflakeSymbols = ['❄', '❅', '❆'];
-        const numSnowflakes = 250;
-
-        function createSnowflake() {
-            const snowflake = document.createElement('div');
-            snowflake.classList.add('snowflake');
-            snowflake.textContent = snowflakeSymbols[Math.floor(Math.random() * snowflakeSymbols.length)];
-            
-            const startPosition = Math.random() * 100;
-            const fontSize = Math.random() * 1.5 + 0.5;
-            const duration = Math.random() * 2 + 3;
-            const delay = Math.random() * 0.5;
-            
-            snowflake.style.left = startPosition + '%';
-            snowflake.style.fontSize = fontSize + 'em';
-            snowflake.style.animationDuration = duration + 's';
-            snowflake.style.animationDelay = delay + 's';
-            snowflake.style.opacity = Math.random() * 0.6 + 0.4;
-            
-            document.body.appendChild(snowflake);
-            
-            setTimeout(() => {
-                snowflake.remove();
-            }, (duration + delay) * 1000);
-        }
-
-        for (let i = 0; i < numSnowflakes; i++) {
-            createSnowflake();
-        }
-
-        setInterval(() => {
-            createSnowflake();
-        }, 50);
-
-        // Page navigation
-        function showPage(pageId) {
-            document.querySelectorAll('.page').forEach(page => {
-                page.classList.remove('active');
-            });
-            document.getElementById(pageId).classList.add('active');
-            window.scrollTo(0, 0);
-        }
-
-        // Fee counter animation
-        let feeAmount = 0;
-        const devWallet = "DevWallet7x...K9m3Qp";
-        let transactionCount = 0;
-        
-        setInterval(() => {
-            feeAmount += 0.01;
-            const feeCounter = document.getElementById('feeCounter');
-            if (feeCounter) {
-                feeCounter.textContent = feeAmount.toFixed(2);
-            }
-        }, 2000);
-
-        // Add transactions from dev wallet periodically
-        function addTransaction() {
-            const transactionList = document.getElementById('transactionList');
-            if (!transactionList) return;
-
-            transactionCount++;
-            const randomAmount = (Math.random() * 2 + 0.3).toFixed(2);
-            const types = ['Purchase', 'Distribution'];
-            const type = types[Math.floor(Math.random() * types.length)];
-            
-            const row = document.createElement('tr');
-            row.style.animation = 'fadeIn 0.5s ease-in';
-            
-            row.innerHTML = `
-                <td><span class="tx-type ${type === 'Purchase' ? 'tx-purchase' : 'tx-distribution'}">${type}</span></td>
-                <td>${type === 'Purchase' ? randomAmount + ' SOL' : '$0.10 BLIZZARD'}</td>
-                <td>${devWallet}</td>
-                <td>Just now</td>
-            `;
-            
-            transactionList.insertBefore(row, transactionList.firstChild);
-            
-            // Keep only last 10 transactions
-            if (transactionList.children.length > 10) {
-                transactionList.removeChild(transactionList.lastChild);
-            }
-            
-            // Update timestamps
-            const rows = transactionList.querySelectorAll('tr');
-            rows.forEach((r, index) => {
-                if (index === 0) {
-                    r.querySelector('td:last-child').textContent = 'Just now';
-                } else {
-                    r.querySelector('td:last-child').textContent = `${index} min${index > 1 ? 's' : ''} ago`;
-                }
-            });
-        }
-
-        // Add first transaction after 3 seconds, then every 8 seconds
-        setTimeout(() => {
-            addTransaction();
-            setInterval(addTransaction, 8000);
-        }, 3000);
-    </script>
-</body>
-</html>
+  );
+}
